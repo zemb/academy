@@ -120,6 +120,7 @@ def main():
     print("----------------------------------------")
     # Šířka prostředního sloupce je podle nejdelší hodnoty
     print(f"LEN|{'OCCURENCES':{stats['word_lengths_max']}}|NR.")
+    print("----------------------------------------")
     for length, occurrences in sorted(stats['word_lengths'].items()):
         print(f"{length:3}|{'*' * occurrences:{stats['word_lengths_max']}}|{occurrences}")
 
