@@ -43,6 +43,8 @@ REGISTERED_USERS = {
 }
 
 # Pomocné funkce
+
+
 def analyze_text(text):
     """Analyzuje text a vrací statistiky."""
     words = text.split()
@@ -52,7 +54,7 @@ def analyze_text(text):
     num_lowercase = sum(1 for word in words if word.islower())
     num_numbers = sum(1 for word in words if word.isdigit())
     sum_numbers = sum(int(word) for word in words if word.isdigit())
-    
+
     # Slovník pro každou možnou (nalezenou) délku
     word_lengths = {}
     word_lengths_max = 0
@@ -61,7 +63,8 @@ def analyze_text(text):
         if length not in word_lengths:
             word_lengths[length] = 0
         word_lengths[length] += 1
-        if word_lengths_max < word_lengths[length]: # Dřevní implementace max()
+        # Dřevní implementace max()
+        if word_lengths_max < word_lengths[length]:
             word_lengths_max = word_lengths[length]
 
     return {
@@ -76,12 +79,14 @@ def analyze_text(text):
     }
 
 # Hlavní kód
+
+
 def main():
     num_texts = len(TEXTS)
     if not num_texts:
         print("Odd. No texts to analyze. Terminating the program..")
         return
-      
+
     print("----------------------------------------")
     username = input("username:")
     password = input("password:")
@@ -98,13 +103,14 @@ def main():
 
     # Výběr textu
     try:
-        text_choice = int(input(f"Enter a number btw. 1 and {num_texts} to select: "))
+        text_choice = int(
+            input(f"Enter a number btw. 1 and {num_texts} to select: "))
         if text_choice < 1 or text_choice > num_texts:
             raise ValueError
     except ValueError:
         print("Invalid choice, terminating the program..")
         return
-    
+
     # Analýza vybraného textu
     selected_text = TEXTS[text_choice - 1]
     stats = analyze_text(selected_text)
@@ -122,7 +128,9 @@ def main():
     print(f"LEN|{'OCCURENCES':{stats['word_lengths_max']}}|NR.")
     print("----------------------------------------")
     for length, occurrences in sorted(stats['word_lengths'].items()):
-        print(f"{length:3}|{'*' * occurrences:{stats['word_lengths_max']}}|{occurrences}")
+        print(
+            f"{length:3}|{'*' * occurrences:{stats['word_lengths_max']}}|{occurrences}")
+
 
 if __name__ == "__main__":
     main()
