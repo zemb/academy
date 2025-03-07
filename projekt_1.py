@@ -53,7 +53,7 @@ def analyze_text(text):
     num_numbers = sum(1 for word in words if word.isdigit())
     sum_numbers = sum(int(word) for word in words if word.isdigit())
     
-    # Asociativní pole pro každou možnou (nalezenou) délku
+    # Slovník pro každou možnou (nalezenou) délku
     word_lengths = {}
     word_lengths_max = 0
     for word in words:
@@ -61,7 +61,7 @@ def analyze_text(text):
         if length not in word_lengths:
             word_lengths[length] = 0
         word_lengths[length] += 1
-        if word_lengths_max < word_lengths[length]:
+        if word_lengths_max < word_lengths[length]: # Dřevní implementace max()
             word_lengths_max = word_lengths[length]
 
     return {
@@ -118,6 +118,7 @@ def main():
     print(f"There are {stats['num_numbers']} numeric strings.")
     print(f"The sum of all the numbers {stats['sum_numbers']}")
     print("----------------------------------------")
+    # Šířka prostředního sloupce je podle nejdelší hodnoty
     print(f"LEN|{'OCCURENCES':{stats['word_lengths_max']}}|NR.")
     for length, occurrences in sorted(stats['word_lengths'].items()):
         print(f"{length:3}|{'*' * occurrences:{stats['word_lengths_max']}}|{occurrences}")
